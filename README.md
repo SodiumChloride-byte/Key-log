@@ -32,3 +32,46 @@ It is designed for security research and authorized penetration testing purposes
    ```bash
    git clone https://github.com/yourusername/keylogger-telegram.git
    cd keylogger-telegram
+
+2. Install dependencies
+   ```bash
+   pip install -r requirements.txt
+
+3. Configure your Telegram credentials in config.py
+
+4. Run the Keylogger
+   ```bash
+   python keylogger.py
+
+## Setup Telegram Bot
+1. Open Telegram and search for @BotFather
+2. Start a chat with BotFather and send /newbot
+3. Follow the instructions to create a new bot
+4. Copy the HTTP API token
+5. Start a chat with your newly created bot and send a message (like "Hello")
+6. Visit https://api.telegram.org/bot[YOUR_BOT_TOKEN]/getUpdates (replace YOUR_BOT_TOKEN)
+7. Find your chat ID in the response (the "id" field under "chat")
+
+## Configuration
+Edit config.py to set your Telegram credentials:
+```bash
+TELEGRAM_BOT_TOKEN = "your_bot_token_here"
+TELEGRAM_CHAT_ID = "your_chat_id_here"
+```
+Other configurable options:
+1. SEND_INTERVAL: How often to send logs (in seconds)
+2. LOG_FILE: Local file to temporarily store logs
+3. MAX_LOG_SIZE: Maximum size of message sent to Telegram (characters)
+
+## Usage 
+```bash
+python keylogger.py
+```
+The keylogger will start capturing keystrokes and sending them to your Telegram chat periodically. To stop the keylogger, press the ESC key.
+
+## Technical Details
+1. Uses pynput library for key capture
+2. Implements multithreading to separate logging from sending
+3. Handles special keys appropriately
+4. Automatically truncates large logs to fit Telegram limitations
+5. Deletes local log file after successful transmission
